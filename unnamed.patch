@@ -1,0 +1,61 @@
+Index: SecondApp/src/main/java/ru/kudryavtseva/SecondApp/service/ModifyResponseService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/service/ModifyResponseService.java b/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/service/ModifyResponseService.java
+new file mode 100644
+--- /dev/null	(date 1759238281987)
++++ b/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/service/ModifyResponseService.java	(date 1759238281987)
+@@ -0,0 +1,8 @@
++package ru.kudryavtseva.SecondApp.service;
++
++import ru.kudryavtseva.SecondApp.model.Response;
++
++public interface ModifyResponseService {
++
++    Response modify (Response response);
++}
+Index: SecondApp/src/main/java/ru/kudryavtseva/SecondApp/controller/MyController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/controller/MyController.java b/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/controller/MyController.java
+--- a/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/controller/MyController.java
++++ b/SecondApp/src/main/java/ru/kudryavtseva/SecondApp/controller/MyController.java	(date 1759238038225)
+@@ -14,6 +14,7 @@
+ import ru.kudryavtseva.SecondApp.model.Request;
+ import ru.kudryavtseva.SecondApp.model.Response;
+ import ru.kudryavtseva.SecondApp.service.ValidationService;
++import ru.kudryavtseva.SecondApp.util.DateTimeUtil;
+ 
+ import java.text.SimpleDateFormat;
+ import java.util.Date;
+@@ -38,7 +39,7 @@
+         Response response = Response.builder()
+                 .uid(request.getUid())
+                 .operationUid(request.getOperationUid())
+-                .systemTime(simpleDateFormat.format(new Date()))
++                .systemTime(DateTimeUtil.getCustomFormat().format(new Date()))
+                 .code("success")
+                 .errorCode("")
+                 .errorMessage("")
+@@ -47,13 +48,13 @@
+             validationService.isValid(bindingResult);
+         } catch (UnsupportedCodeException c){
+             response.setCode("failed");
+-            response.setErrorCode("UnsupportedCodeException");
+-            response.setErrorMessage("Не поддерживаемая ошибка");
++            response.setErrorCode("ValidationException");
++            response.setErrorMessage("Ошибка валидации");
+             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+         } catch (ValidationFailedException e) {
+             response.setCode("failed");
+-            response.setErrorCode("ValidationException");
+-            response.setErrorMessage("Ошибка валидации");
++            response.setErrorCode("UnsupportedCodeException");
++            response.setErrorMessage("Не поддерживаемая ошибка");
+             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+         }
+            catch (Exception e) {
