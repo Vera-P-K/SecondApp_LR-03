@@ -9,6 +9,7 @@ import ru.kudryavtseva.SecondApp.exception.UnsupportedCodeException;
 @Service
 public interface ValidationService {
 
-    void isValid(BindingResult bindingResult) throws ValidationFailedException, UnsupportedCodeException;
+    void isValid(BindingResult bindingResult) throws UnsupportedCodeException,
+            ValidationFailedException;
 
 }

@@ -10,20 +10,13 @@ import ru.kudryavtseva.SecondApp.exception.UnsupportedCodeException;
 public class RequestValidationService implements ValidationService {
 
     @Override
-    public void isValid(BindingResult bindingResult) throws UnsupportedCodeException, ValidationFailedException  {
-
-        if (bindingResult.hasErrors()) {
-
-            for(FieldError error : bindingResult.getFieldErrors()){
-                if(error.getField().equals("123")){
-                    throw new UnsupportedCodeException(bindingResult.getFieldError().toString());
-                } else {
+    public void isValid(BindingResult bindingResult) throws  ValidationFailedException  {
+if (bindingResult.hasErrors()){
                     throw new ValidationFailedException(bindingResult.getFieldError().toString());
-                }
+               }
             }
 
 
         }
 
-    }
-}
+

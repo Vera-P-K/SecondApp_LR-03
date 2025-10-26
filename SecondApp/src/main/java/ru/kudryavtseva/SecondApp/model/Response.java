@@ -10,9 +10,9 @@ public class Response {
 
     private String uid;
     private String operationUid;
-    private String code;
+    private Codes code;
     private String systemTime;
-    private String errorCode;
-    private String errorMessage;
+    private ErrorCodes errorCode;
+    private ErrorMessages errorMessage;
 
 }
